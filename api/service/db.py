@@ -75,7 +75,6 @@ class DB:
         colNames = self.getColumnNames(table)
 
         db = self.connectToDB()
-        cursor = db.cursor()
         for colName in colNames:
             if paramSet[colName] is None:
                 return "Missing " + colName
@@ -98,7 +97,6 @@ class DB:
     # delete("Flight", {flight_number, "AA 2330"})
     def delete(self, table, paramSet):
         db = self.connectToDB()
-        cursor = db.cursor()
 
         args = "WHERE"
         for column, value in paramSet.items():

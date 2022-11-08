@@ -49,9 +49,9 @@ def add_flight():
     return db.insert("Flight", body)
 
 @flight_bp.route("/flight/<flight_id>", methods=['GET'])
-def get_flight_by_ID(id):
+def get_flight_by_ID(flight_id):
     try:
-        return db.query("Flight", {'flight_id': id})
+        return db.query("Flight", {'flight_id': flight_id})
     except:
         return "Incorrect input"
 
