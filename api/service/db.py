@@ -36,10 +36,10 @@ class DB:
         db.close()
         return result
     
-    # Query the database from a table and return all results
-    # query("Flight", {flight_number, "AA 2330"})
+    # Search the database from a table and return all results
+    # search("Flight", {flight_number, "AA 2330"})
     # If no paramSet is specified, return all rows
-    def query(self, table, paramSet={}):
+    def search(self, table, paramSet={}):
         colNames = self.getColumnNames(table)
 
         try:
@@ -88,7 +88,7 @@ class DB:
         try:
             print("Inserting into MySQL")
             self.execute(sqlCommand)
-            return self.query(table, paramSet)
+            return self.search(table, paramSet)
         except:
             return []
 

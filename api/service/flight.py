@@ -12,7 +12,7 @@ db = DB()
 # GET http://127.0.0.1:5000/api/flights
 @flight_bp.route("/flights")
 def get_flights():
-    return db.query("Flight", {'limit': 1000})
+    return db.search("Flight", {'limit': 1000})
 
 # Example usage:
 # GET http://127.0.0.1:5000/api/flight?departure_airport=LAX&arrival_airport=ORD&airline_code=AA
@@ -23,7 +23,7 @@ def search_flight():
         if column not in colNames:
             return "Incorrect column names"
     try:
-        return db.query("Flight", request.args)
+        return db.search("Flight", request.args)
     except:
         return "Incorrect input"
 

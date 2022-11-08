@@ -8,4 +8,4 @@ db = DB()
 
 @ticket_bp.route("/tickets")
 def get_tickets():
-    return db.query('Ticket', {'limit': 1000})
+    return db.search('Ticket', {'limit': 1000})

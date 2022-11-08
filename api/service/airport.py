@@ -7,4 +7,4 @@ db = DB()
 
 @airport_bp.route("/airports")
 def get_airports():
-    return db.query("Airport")
+    return db.search("Airport")
