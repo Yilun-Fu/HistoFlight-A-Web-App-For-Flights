@@ -54,7 +54,7 @@ class DB:
         if len(paramSet) == 0:
             queryArgs = ''
         else:
-            queryArgs = " WHERE" + " " + self.formArgString(paramSet, " AND")
+            queryArgs = " WHERE" + " " + self.formArgString(paramSet, " AND ")
 
         
         sqlCommand = "SELECT * FROM " + table + queryArgs + limitArgs
@@ -89,7 +89,7 @@ class DB:
     # delete("Flight", {flight_number: "AA 2330"})
     def delete(self, table, paramSet):
 
-        args = "WHERE" + " " + self.formArgString(paramSet, " AND")
+        args = "WHERE" + " " + self.formArgString(paramSet, " AND ")
 
         sqlCommand = "DELETE FROM " + table + " " + args
         try:
@@ -105,18 +105,18 @@ class DB:
     def formArgString(self, paramSet, seperator):
         args = ""
         for column, value in paramSet.items():
-            args = args + " " + column + " = '" + value + "'" + seperator
+            args = args + column + " = '" + value + "'" + seperator
         
         if args.endswith(seperator):
-            args = args[1:-len(seperator)]
+            args = args[0:-len(seperator)]
         return args
 
     # Update a value of a table from the database
     # and return whether the operation was successful
     # update("Flight", {flight_number: "AA 2330"})
     def update(self, table, paramSet, newParamSet):
-        setString = "SET" + " " + self.formArgString(newParamSet, ",")
-        whereString = "WHERE" + " " + self.formArgString(paramSet, " AND")
+        setString = "SET" + " " + self.formArgString(newParamSet, ", ")
+        whereString = "WHERE" + " " + self.formArgString(paramSet, " AND ")
 
         sqlCommand = "UPDATE " + table + " " + setString + " " + whereString
         
