@@ -32,6 +32,8 @@ class DB:
                 else:
                     cur[cursor.description[col][0]] = row[col]
             result.append(cur)
+        db.commit()
+        db.close()
         return result
     
     # Query the database from a table and return all results
@@ -40,7 +42,6 @@ class DB:
     def query(self, table, paramSet={}):
         colNames = self.getColumnNames(table)
 
-        db = self.connectToDB()
         try:
             limitArgs = " LIMIT " + str(paramSet.pop('limit'))
         except:
@@ -65,7 +66,7 @@ class DB:
         
         sqlCommand = "SELECT * FROM " + table + queryArgs + limitArgs
         result = self.execute(sqlCommand)
-        db.close()
+
         return result
 
     # Insert a value into a table in the database and return the inserted row
@@ -87,10 +88,7 @@ class DB:
         sqlCommand = "INSERT INTO " + table + " VALUES('" + "','".join(values) + "')"
         try:
             print("Inserting into MySQL")
-            print(sqlCommand)
-            cursor.execute(sqlCommand)
-            db.commit()
-            db.close()
+            self.execute(sqlCommand)
             return self.query(table, paramSet)
         except:
             return []
@@ -110,11 +108,9 @@ class DB:
             args = args[0:- 4]
 
         sqlCommand = "DELETE FROM " + table + " " + args
-        print("Deleting from MySQL")
-        print(sqlCommand)
         try:
-            cursor.execute(sqlCommand)
-            db.commit()
+            print("Deleting from MySQL")
+            self.execute(sqlCommand)
             return True
         except:
             return False
