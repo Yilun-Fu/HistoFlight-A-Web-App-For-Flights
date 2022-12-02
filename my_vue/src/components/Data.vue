@@ -1,70 +1,5 @@
 <template>
   <v-content>
-      <!-- <div>
-        <v-card
-          flat
-          color="transparent"
-        >
-          <v-subheader>Min and max default slider</v-subheader>
-
-          <v-card-text>
-            <v-row>
-              <v-col class="pr-4">
-                <v-slider
-                  v-model="slider"
-                  class="align-center"
-                  :max="max"
-                  :min="min"
-                  hide-details
-                >
-                  <template v-slot:append>
-                    <v-text-field
-                      v-model="slider"
-                      class="mt-0 pt-0"
-                      hide-details
-                      single-line
-                      type="number"
-                      style="width: 60px"
-                    ></v-text-field>
-                  </template>
-                </v-slider>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </div> -->
-      <!-- <v-simple-table class="table">
-          <template v-slot:default>
-              <thead>
-              <tr>
-                  <th>Flights ({{flightData.length}})</th>
-                  <th>Departure City</th>
-                  <th>Arrival City</th>
-                  <th>Departure Date</th>
-                  <th>Departure Time</th>
-                  <th>Arrival Date</th>
-                  <th>Arrival Time</th>
-                  <th>Price</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr
-                  v-for="(flight,index) in flightData"
-                  :key="index"
-              >
-                  <td>{{ flight.flight_number }}</td>
-                  <td>{{ flight.departure_airport }}</td>
-                  <td>{{ flight.arrival_airport }}</td>
-                  <td>{{ flight.departure_date }}</td>
-                  <td>{{ flight.departure_time }}</td>
-                  <td>{{ flight.arrival_date }}</td>
-                  <td>{{ flight.arrival_time }}</td>
-                  <td>${{ flight.avg_Price }}</td>
-              </tr>
-              </tbody>
-              
-          </template>
-      </v-simple-table> -->
       <v-data-table
         :headers="tableHeader"
         :items="flightData"
@@ -107,49 +42,9 @@
             ></v-switch>
           </v-toolbar>
         </template>
-        <!-- <template v-slot:expanded-item="{ item }">
-          <td>
-            <p>More info about {{ item.flight_id }}</p>
-          </td>
-            <td>
-              <v-subheader>Current Price Range</v-subheader>
 
-              <v-card-text>
-                <v-slider
-                  v-model="f"
-                  :tick-labels="ticksLabels"
-                  v-bind="{max, tickLabels}"
-                  tick-size="0"
-                ></v-slider>
-              </v-card-text>
-            </td> -->
-            <!-- <v-slider
-              v-model="ex3.val"
-              :label="ex3.label"
-              :thumb-color="ex3.color"
-              thumb-label="always"
-              :tick-labels="tickLabels"
-            ></v-slider> -->
-          
-        <!-- </template> -->
         <template v-slot:expanded-item="{ item }">
           <td>
-            <!-- <v-range-slider
-              :tick-labels="flightTicksLabels"
-              :value="[0, 1]"
-              min="0"
-              max="1"
-              ticks="always"
-              vertical
-              disabled
-                            
-            >
-               <template v-slot:thumb-label="props">
-                <v-icon dark>
-                  {{ flightTicksLabels(props.value) }}
-                </v-icon>
-              </template> -->
-            <!-- </v-range-slider> -->
             {{item.flight_number}}
             <v-icon>fas fa signal-variant</v-icon>Free wifi available
           </td>
@@ -322,8 +217,8 @@ export default{
       var UALogo = require("../assets/image/UA.jpg")
       var AALogo = require("../assets/image/AA.jpg")
       var NKLogo = require("../assets/image/spirit.jpg")
-      // var ASLogo = require("../assets/image/AS.jpg")
-      // var WNLogo = require("../assets/image/WN.jpg")
+      var ASLogo = require("../assets/image/AS.jpg")
+      var WNLogo = require("../assets/image/WN.jpg")
 
       var img = ""
       var company = flightNumber.substr(0, 2)
@@ -334,12 +229,11 @@ export default{
         img = AALogo
       } else if (company == "NK"){
         img = NKLogo
+      } else if (company == "AS"){
+        img = ASLogo
+      } else if (company == "WN"){
+        img = WNLogo
       }
-      // } else if (company == "AS"){
-      //   img = ASLogo
-      // } else if (company == "WN"){
-      //   img = WNLogo
-      // }
 
       return img
     },
