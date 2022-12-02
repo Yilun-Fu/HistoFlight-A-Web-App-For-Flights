@@ -79,8 +79,10 @@
         <template v-slot:item.time="{ item }">{{ item.departure_time }} - {{ item.arrival_time }}</template>
 
         <template v-slot:item.avg_price="{ item }">
-          <v-icon v-if="item.is_cheap==1">fas fa-star</v-icon>
-          ${{ item.avg_price }}
+          
+          ${{ item.avg_price }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <!-- <v-spacer></v-spacer> -->
+          <v-icon v-if="item.is_cheap==1" color="yellow" >fas fa-star</v-icon>
           
         </template>
 
@@ -149,7 +151,7 @@
               </template> -->
             <!-- </v-range-slider> -->
             {{item.flight_number}}
-            Free wifi available
+            <v-icon>fas fa signal-variant</v-icon>Free wifi available
           </td>
           
           <!-- <td>
@@ -267,15 +269,11 @@ export default{
       var aAbv = this.cityAbv[this.$route.query.items.arrivalCity] || "ORD";
       var dAbv = this.cityAbv[this.$route.query.items.departureCity] || "LAX";
       var departDate = this.$route.query.items.departureDate;
-      if (this.$route.query.items.avgPrice == true){
-          axios.get(url+'/api/getFlightsCheaperThanAvg?arrival_airport='+aAbv+'&departure_airport='+dAbv+'&departure_date='+departDate).then(resp => {
-            this.getTicketPrice(resp.data);
-        });
-      }else{
-        axios.get(url+'/api/flight?arrival_airport='+aAbv+'&departure_airport='+dAbv+'&departure_date='+departDate).then(resp => {
+      
+      axios.get(url+'/api/getFlightsCheaperThanAvg?arrival_airport='+aAbv+'&departure_airport='+dAbv+'&departure_date='+departDate).then(resp => {
           this.getTicketPrice(resp.data);
-        });
-      }
+      });
+      
     },
     getTicketPrice:function(fdata){       
       var b = fdata;
@@ -285,7 +283,7 @@ export default{
         var flight_id = b[i]["flight_id"];
         axios.get(url+'/api/getFlightAvgPrice/'+flight_id).then(resp => {
           b[i]["avg_price"] = resp.data[0]["avg_price"].toFixed(2);
-          b[i]["is_cheap"] = 1
+          // b[i]["is_cheap"] = 1
           this.flightData.push(b[i])
           set.add(parseFloat(resp.data[0]["avg_price"].toFixed(2)))
           console.log(set)
@@ -324,16 +322,25 @@ export default{
       var UALogo = require("../assets/image/UA.jpg")
       var AALogo = require("../assets/image/AA.jpg")
       var NKLogo = require("../assets/image/spirit.jpg")
+      // var ASLogo = require("../assets/image/AS.jpg")
+      // var WNLogo = require("../assets/image/WN.jpg")
+
       var img = ""
       var company = flightNumber.substr(0, 2)
       console.log(company)
       if (company == "UA"){
         img = UALogo
-       }else if (company == "AA"){
+      } else if (company == "AA"){
         img = AALogo
       } else if (company == "NK"){
         img = NKLogo
       }
+      // } else if (company == "AS"){
+      //   img = ASLogo
+      // } else if (company == "WN"){
+      //   img = WNLogo
+      // }
+
       return img
     },
     // customRowClass(item) {
