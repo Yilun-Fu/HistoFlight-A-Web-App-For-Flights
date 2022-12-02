@@ -129,6 +129,9 @@ export default{
       var VXLogo = require("../assets/image/VX.jpg")
       var B6Logo = require("../assets/image/B6.jpg")
       var OOLogo = require("../assets/image/OO.jpg")
+      var ACLogo = require("../assets/image/AC.jpg")
+      var WSLogo = require("../assets/image/WS.jpg")
+      var EVLogo = require("../assets/image/EV.jpg")
 
       var img = ""
       var company = flightNumber.substr(0, 2)
@@ -155,6 +158,12 @@ export default{
         img = B6Logo
       } else if (company == "OO"){
         img = OOLogo
+      } else if (company == "AC"){
+        img = ACLogo
+      } else if (company == "WS"){
+        img = WSLogo
+      } else if (company == "EV"){
+        img = EVLogo
       }
 
       return img
