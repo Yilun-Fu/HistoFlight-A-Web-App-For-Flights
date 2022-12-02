@@ -16,7 +16,6 @@
         <template v-slot:item.avg_price="{ item }">
           
           ${{ item.avg_price }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <!-- <v-spacer></v-spacer> -->
           <v-icon v-if="item.is_cheap==1" color="yellow" >fas fa-star</v-icon>
           
         </template>
@@ -53,55 +52,10 @@
             <v-icon>mdi-power-plug-outline</v-icon>In-seat power outlet
             <br></br>
             <v-icon>mdi-cellphone-nfc</v-icon>Stream media to your device
-            
           </td>
                    
         </template>
       </v-data-table>
-      <v-card
-        class="mx-auto text-center"
-        color="cyan"
-        dark
-        max-width="800"
-      >
-        <v-card-text>
-          <v-sheet color="rgba(0, 0, 0, .12)">
-            <v-sparkline
-              :value="value"
-              color="white"
-              height="100"
-              padding="14"
-              stroke-linecap="round"
-              smooth
-              label-size="4"
-              auto-line-width="true"
-            >
-              <template v-slot:label="item">
-                ${{ item.value }}
-              </template>
-            </v-sparkline>
-          </v-sheet>
-        </v-card-text>
-
-        <v-card-text>
-          <div class="text-h4 font-weight-thin">
-            Range of Flight Prices
-          </div>
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <!-- <v-card-actions class="justify-center">
-          <v-btn
-            block
-            text
-          >
-            Go to Report
-          </v-btn>
-        </v-card-actions> --> 
-      </v-card> 
-      
-      <line-chart :chart-data="datacollection"></line-chart>
 
   </v-content>
 </template>
@@ -152,47 +106,17 @@ export default{
     },
     getTicketPrice:function(fdata){       
       var b = fdata;
-      var set = new Set();
-      console.log(fdata);
+      // console.log(fdata);
       for (let i = 0; i < b.length; i++) { 
         var flight_id = b[i]["flight_id"];
         axios.get(url+'/api/getFlightAvgPrice/'+flight_id).then(resp => {
           b[i]["avg_price"] = resp.data[0]["avg_price"].toFixed(2);
-          // b[i]["is_cheap"] = 1
           this.flightData.push(b[i])
-          set.add(parseFloat(resp.data[0]["avg_price"].toFixed(2)))
-          console.log(set)
-          this.value = Array.from(set).sort(function(a, b){return a - b});
-          console.log(this.value)
-
-          this.setDataCollection(b)
         });
       }
       
     },
-    setDataCollection:function(fdata){
-      var flabel = [];
-      var pricedata = [];
-      // {
-      //   data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-      //     label: "Africa",
-      //     borderColor: "#3e95cd",
-      //     fill: false
-      // }
-      for (let i = 0; i<this.flightData.length;i++){
-        flabel.push(this.flightData[i]["flight_number"])
-        pricedata.push(parseFloat(this.flightData[i]["avg_price"]))
-      }
-      this.datacollection = {
-        labels: flabel,
-        datasets: [{
-          data: pricedata,
-          label: "",
-          borderColor: "#3e95cd",
-          fill: false
-        }]
-      }
-    },
+    
     changeImgSource(flightNumber){
       var UALogo = require("../assets/image/UA.jpg")
       var AALogo = require("../assets/image/AA.jpg")
