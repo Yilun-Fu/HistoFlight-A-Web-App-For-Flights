@@ -125,6 +125,10 @@ export default{
       var WNLogo = require("../assets/image/WN.jpg")
       var F9Logo = require("../assets/image/F9.jpg")
       var G4Logo = require("../assets/image/G4.jpg")
+      var DLLogo = require("../assets/image/DL.jpg")
+      var VXLogo = require("../assets/image/VX.jpg")
+      var B6Logo = require("../assets/image/B6.jpg")
+      var OOLogo = require("../assets/image/OO.jpg")
 
       var img = ""
       var company = flightNumber.substr(0, 2)
@@ -143,14 +147,18 @@ export default{
         img = F9Logo
       } else if (company == "G4"){
         img = G4Logo
+      } else if (company == "DL"){
+        img = DLLogo
+      } else if (company == "VX"){
+        img = VXLogo
+      } else if (company == "B6"){
+        img = B6Logo
+      } else if (company == "OO"){
+        img = OOLogo
       }
 
       return img
     },
-    // customRowClass(item) {
-    //   if (item.is_cheap == 1) return 'style-cheap';
-
-    // }
   },
 }
 </script>
