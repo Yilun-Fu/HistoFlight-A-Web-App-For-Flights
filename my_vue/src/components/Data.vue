@@ -45,26 +45,17 @@
 
         <template v-slot:expanded-item="{ item }">
           <td>
-            {{item.flight_number}}
-            <v-icon>fas fa signal-variant</v-icon>Free wifi available
+            <br></br>
+            <v-icon>mdi-seat-legroom-normal</v-icon>Average Legroom
+            <br></br>
+            <v-icon>mdi-signal-variant</v-icon>Free wifi available
+            <br></br>
+            <v-icon>mdi-power-plug-outline</v-icon>In-seat power outlet
+            <br></br>
+            <v-icon>mdi-cellphone-nfc</v-icon>Stream media to your device
+            
           </td>
-          
-          <!-- <td>
-              <v-subheader>Current Price Range</v-subheader>
-
-              <v-card-text>
-                <v-slider
-                  v-model="f"
-                  :tick-labels="ticksLabels"
-                  v-bind="{max, tickLabels}"
-                  tick-size="0"
-                ></v-slider>
-              </v-card-text>
-          </td> -->
-          <!-- <td>
-            {{item.flight_number}}
-          </td> -->
-          
+                   
         </template>
       </v-data-table>
       <v-card
@@ -124,18 +115,12 @@ export default{
   data () {
     return {
       flightData: [],
-      // UALogo: require("../assets/image/UA.jpg"),
-      // f:1,
-      // ex3: { label: 'thumb-color', val: 50, color: 'red' },
       value:[],
       cityAbv: 
         {"Chicago": "ORD",
         "Los Angeles": "LAX",
         "San Francisco": "SFO",
         },
-      // min: -50,
-      max: 2,
-      // slider: 40,
       singleExpand: false,
       tableHeader: [
         {text: "", align: 'start', sortable: false, value:'logo' },
@@ -147,11 +132,6 @@ export default{
         // {text: "", sortable: false, value:'one_way'},
         {text: "", sortable: false, value:"avg_price"},
         { text: '', value: 'data-table-expand' }
-      ],
-      ticksLabels:[
-        '0',
-        '163.5',
-        '200',
       ],
     }
   },
@@ -219,6 +199,8 @@ export default{
       var NKLogo = require("../assets/image/spirit.jpg")
       var ASLogo = require("../assets/image/AS.jpg")
       var WNLogo = require("../assets/image/WN.jpg")
+      var F9Logo = require("../assets/image/F9.jpg")
+      var G4Logo = require("../assets/image/G4.jpg")
 
       var img = ""
       var company = flightNumber.substr(0, 2)
@@ -233,6 +215,10 @@ export default{
         img = ASLogo
       } else if (company == "WN"){
         img = WNLogo
+      } else if (company == "F9"){
+        img = F9Logo
+      } else if (company == "G4"){
+        img = G4Logo
       }
 
       return img
